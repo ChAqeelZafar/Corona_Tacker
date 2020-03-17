@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="text_background_grey">#f5f5f5</color>
+    <color name="main_heading_grey">#818381</color>
+    <color name="main_timing_grey">#ACBACA</color>
+
+
+    <color name="recovered_number">#8aca2b</color>
+    <color name="death_number">#6a6a6a</color>
+    <color name="total_number">#aaaaaa</color>
+    <color name="number_heading">#555555</color>
+
+    <color name="purple">#8080FF</color>
+    <color name="red">#D12C2C</color>
+</resources>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Corona Tacker</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_heading">COVID-19 CORONAVIRUS OUTBREAK</string>
+    <string name="view_by_country"><u>View by country</u></string>
+
+
+    <string name="cases"><u>CASES</u></string>
+    <string name="country"><u>COUNTRY</u></string>
+    <string name="updates"><u>UPDATES</u></string>
+    <string name="symptoms"><u>SYMPTOMS</u></string>
+
+
+
+    <string name="symp1"></string>
+</resources>
