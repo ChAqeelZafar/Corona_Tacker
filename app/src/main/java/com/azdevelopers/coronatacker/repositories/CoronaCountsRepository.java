@@ -4,11 +4,11 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.azdevelopers.coronatacker.interfaces.AsyncResponseCorona;
 import com.azdevelopers.coronatacker.models.CoronaCounts;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -17,6 +17,7 @@ public class CoronaCountsRepository {
     private static CoronaCountsRepository instance;
     private CoronaCounts coronaCounts = new CoronaCounts();
     MutableLiveData<CoronaCounts> data;
+    //private MainFragmentViewModel mainFragmentViewModel = new MainFragmentViewModel();
     private CoronaCountsRepository(){
 
     }
@@ -28,16 +29,21 @@ public class CoronaCountsRepository {
         return instance;
     }
 
-    public MutableLiveData<CoronaCounts> getCoronaCounts(){
-        setCoronaCounts();
-        MutableLiveData<CoronaCounts> data = new MutableLiveData<>();
-        data.setValue(coronaCounts);
-        return data;
+    public void getCoronaCounts(AsyncResponseCorona asyncResponseCorona){
+        setCoronaCounts(asyncResponseCorona);
+//        MutableLiveData<CoronaCounts> data = new MutableLiveData<>();
+//        data.setValue(coronaCounts);
+
 
     }
 
-    public void setCoronaCounts(){
+    public void setCoronaCounts(final AsyncResponseCorona asyncResponseCorona){
         new AsyncTask<Void, Void, Void>(){
+
+
+            public AsyncResponseCorona delegate = asyncResponseCorona;
+
+
             @Override
             protected Void doInBackground(Void... voids) {
                 Document doc = null;
@@ -65,8 +71,10 @@ public class CoronaCountsRepository {
                     coronaCounts.setMildCasesCount(mildSeriousCount.get(0).text());
                     coronaCounts.setSeriousCasesCount(mildSeriousCount.get(1).text());
 
-                    System.out.println(coronaCounts.getDeathCount());
+                    //System.out.println(coronaCounts.getDeathCount());
 
+//                    if(coronaCounts!=null)
+//                        mainFragmentViewModel.setCoronaCountsMutableLiveData(coronaCounts);
 
 
 
@@ -76,6 +84,13 @@ public class CoronaCountsRepository {
                 return null;
             }
 
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                delegate.processFinish(coronaCounts);
+            }
         }.execute();
+
+
     }
 }

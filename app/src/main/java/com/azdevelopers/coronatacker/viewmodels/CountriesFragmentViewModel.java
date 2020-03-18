@@ -6,15 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.azdevelopers.coronatacker.interfaces.AsyncResponseCountries;
 import com.azdevelopers.coronatacker.models.CountryData;
 import com.azdevelopers.coronatacker.repositories.CountriesCountsRepository;
 
 import java.util.List;
 
-public class CountriesFragmentViewModel extends AndroidViewModel {
-    private static MutableLiveData<List<CountryData>> countriesData ;
+public class CountriesFragmentViewModel extends AndroidViewModel implements AsyncResponseCountries {
+    private static MutableLiveData<List<CountryData>> countriesDataMutable = new MutableLiveData<>();
     private CountriesCountsRepository countriesCountsRepository;
 
     public CountriesFragmentViewModel(@NonNull Application application) {
@@ -22,15 +22,19 @@ public class CountriesFragmentViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<CountryData>> getCountriesData(){
-        return countriesData;
+        return countriesDataMutable;
     }
 
     public void init(){
-        if(countriesData!=null) {
-            return;
-        }else {
+
             countriesCountsRepository = CountriesCountsRepository.getInstance();
-            countriesData = countriesCountsRepository.getCountriesData();
-        }
+            countriesCountsRepository.getCountriesData(this);
+
+    }
+
+
+    @Override
+    public void processFinish(List<CountryData> countryData) {
+        countriesDataMutable.setValue(countryData);
     }
 }

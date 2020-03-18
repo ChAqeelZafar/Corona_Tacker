@@ -6,6 +6,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
+import com.azdevelopers.coronatacker.interfaces.AsyncResponseNews;
 import com.azdevelopers.coronatacker.models.NewsUpdateData;
 
 import org.jsoup.Jsoup;
@@ -14,8 +15,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class NewsUpdateRepository {
     public static NewsUpdateRepository instance;
@@ -30,15 +34,20 @@ public class NewsUpdateRepository {
         return instance;
     }
 
-    public MutableLiveData<List<NewsUpdateData>> getNewsUpdates(){
-        setNewsUpdates();
-        MutableLiveData<List<NewsUpdateData>> data = new MutableLiveData<>();
-        data.setValue(newsUpdates);
-        return  data;
+    public void getNewsUpdates(AsyncResponseNews asyncResponseNews){
+        setNewsUpdates(asyncResponseNews);
+
     }
 
-    public void setNewsUpdates(){
+    public void setNewsUpdates(AsyncResponseNews asyncResponseNews){
+        final AsyncResponseNews delegate = asyncResponseNews;
         new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                delegate.processFinish(newsUpdates);
+            }
+
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             protected Void doInBackground(Void... voids) {
@@ -48,14 +57,18 @@ public class NewsUpdateRepository {
                     doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
 
 
-                    //Element dateNews = doc.getElementById("newsdate2020-03-15");
-                    Element dateNews = doc.getElementById("newsdate" + java.time.LocalDate.now());
+                    SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MM-dd");
+                    dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+                    String date =  dateFormatGmt.format(new Date())+"";
+
+                    Element dateNews = doc.getElementById("newsdate" + date);
                     Elements newsList = dateNews.getElementsByClass("news_post");
 
                     for (int i = 0; i < newsList.size(); i++) {
 
                         Element singleNews = newsList.get(i);
                         String actualNews = singleNews.text();
+                        actualNews = actualNews.replaceAll("\\[source", "").replaceAll("\\]","");
                         String srcUrl = singleNews.select("a").attr("href");
                         newsUpdates.add(new NewsUpdateData(actualNews, srcUrl));
 

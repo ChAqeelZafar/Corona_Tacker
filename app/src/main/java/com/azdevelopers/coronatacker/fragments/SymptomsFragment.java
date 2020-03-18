@@ -14,39 +14,88 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.azdevelopers.coronatacker.FragmentContainerActivity;
 import com.azdevelopers.coronatacker.R;
 
 public class SymptomsFragment extends Fragment {
 
+    //TextView for Symptoms data display
     private TextView mainTextView;
-    private TextView casesText, countryText, updatesText, symtomsText;
-    private TextView casesTextB, countryTextB, updatesTextB, symtomsTextB;
+    //TextButton at upper and bottom to switch bw fragments
+    private TextView casesText, countryText, updatesText, symptomsText;
+    private TextView casesTextB, countryTextB, updatesTextB, symptomsTextB;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_symptoms, container, false);
 
         bindIds(view);
+        setListeners();
+
+        ((FragmentContainerActivity) getActivity()).setCurrentFragment("symptoms");
 
         setTextView();
-        setListeners();
+
         return view;
     }
 
     public void setListeners(){
-        symtomsText.setOnClickListener(new View.OnClickListener() {
+        symptomsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new SymptomsFragment());
             }
         });
-        symtomsTextB.setOnClickListener(new View.OnClickListener() {
+        symptomsTextB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new SymptomsFragment());
+            }
+        });
+
+        countryText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new CountriesFragment());
+            }
+        });
+
+        countryTextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new CountriesFragment());
+            }
+        });
+
+
+        updatesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new NewsFragment());
+            }
+        });
+        updatesTextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new NewsFragment());
+            }
+        });
+
+        casesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new MainFragment());
+            }
+        });
+        casesTextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new MainFragment());
             }
         });
     }
+
 
     public void bindIds(View view){
         mainTextView = view.findViewById(R.id.symptoms_text_main);
@@ -54,13 +103,13 @@ public class SymptomsFragment extends Fragment {
         casesText = view.findViewById(R.id.symptoms_textbtn_cases);
         countryText = view.findViewById(R.id.symptoms_textbtn_country);
         updatesText = view.findViewById(R.id.symptoms_textbtn_updates);
-        symtomsText = view.findViewById(R.id.symptoms_textbtn_symptoms);
+        symptomsText = view.findViewById(R.id.symptoms_textbtn_symptoms);
 
 
         casesTextB = view.findViewById(R.id.symptoms_textbtn_bottom_cases);
         countryTextB = view.findViewById(R.id.symptoms_textbtn_bottom_country);
         updatesTextB = view.findViewById(R.id.symptoms_textbtn_bottom_updates);
-        symtomsTextB = view.findViewById(R.id.symptoms_textbtn_bottom_symptoms);
+        symptomsTextB = view.findViewById(R.id.symptoms_textbtn_bottom_symptoms);
 
     }
 

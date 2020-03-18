@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.azdevelopers.coronatacker.interfaces.AsyncResponseCountries;
 import com.azdevelopers.coronatacker.models.CountryData;
 
 import org.jsoup.Jsoup;
@@ -30,24 +31,34 @@ public class CountriesCountsRepository {
         return instance;
     }
 
-    public MutableLiveData<List<CountryData>> getCountriesData(){
-        setCountiresData();
-        MutableLiveData<List<CountryData>> data = new MutableLiveData<>();
-        data.setValue(countriesData);
-        return data;
+    public void getCountriesData(AsyncResponseCountries asyncResponseCountries){
+        setCountiresData(asyncResponseCountries);
+//        MutableLiveData<List<CountryData>> data = new MutableLiveData<>();
+//        data.setValue(countriesData);
+
     }
 
-    public void setCountiresData(){
+    public void setCountiresData(final AsyncResponseCountries asyncResponseCountries){
+        final AsyncResponseCountries delegate = asyncResponseCountries;
         new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                delegate.processFinish(countriesData);
+            }
+
             @Override
             protected Void doInBackground(Void... voids) {
                 Document doc = null;
+
                 try {
                     doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
 
 
 
                     Element table = doc.getElementById("main_table_countries");
+                    if(table==null)
+                        table = doc.getElementById("main_table_countries_today");
                     Elements tbody = table.select("tbody");
                     Elements rows = tbody.get(0).select("tr");
 
@@ -56,7 +67,7 @@ public class CountriesCountsRepository {
                         Elements cols = row.select("td");
 
                         CountryData country = new CountryData();
-                        country.setCountryName(cols.get(0).select("a").text());
+                        country.setCountryName(cols.get(0).text());
                         country.setTotalCases(cols.get(1).text());
                         country.setNewCases(cols.get(2).text());
                         country.setTotalDeaths(cols.get(3).text());
@@ -91,5 +102,7 @@ public class CountriesCountsRepository {
                 return null;
             }
         }.execute();
+
+
     }
 }

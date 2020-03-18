@@ -1,12 +1,10 @@
 package com.azdevelopers.coronatacker.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,63 +12,47 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.azdevelopers.coronatacker.FragmentContainerActivity;
 import com.azdevelopers.coronatacker.R;
-import com.azdevelopers.coronatacker.TempActivity;
 import com.azdevelopers.coronatacker.models.CoronaCounts;
 import com.azdevelopers.coronatacker.viewmodels.MainFragmentViewModel;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.zip.Inflater;
 
 public class MainFragment extends Fragment {
     private MainFragmentViewModel mainFragmentViewModel;
 
-
-    //Main
+    //For upper menu text button to switch betweeen fragments
     private TextView timeText, casesText, countryText, updatesText, symptomsText;
-
+    //TextViews to display main counts
     private TextView totalCasesText, deathsText, recoveredText;
     private TextView activeCasesText, mildText, mildPerText, seriousText, seriousPerText;
     private TextView closedCasesText, recovredMinitext, recoveredPerText, deathMiniText, deathPerText;
-
+    //For bottom menu text button to switch betweeen fragments
     private TextView casesTextB, countryTextB, updatesTextB, symptomsTextB;
-
-
+    //For Middle countryTextButton
+    private TextView countryTextM;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-
-        mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
-        mainFragmentViewModel.init();
-
         bindIds(view);
         setListeners();
 
+        ((FragmentContainerActivity) getActivity()).setCurrentFragment("main");
 
-
-        mainFragmentViewModel.getCoronaCounts().observe(getActivity(), new Observer<CoronaCounts>() {
+        mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
+        mainFragmentViewModel.getCoronaCounts().observe(getViewLifecycleOwner(), new Observer<CoronaCounts>() {
             @Override
             public void onChanged(CoronaCounts coronaCounts) {
-                //CoronaCounts temp = mainFragmentViewModel.getCoronaCounts().getValue();
                     setTextViews(coronaCounts);
             }
         });
-
-
 
         return view;
 
@@ -89,6 +71,52 @@ public class MainFragment extends Fragment {
                 loadFragment(new SymptomsFragment());
             }
         });
+
+        countryText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new CountriesFragment());
+            }
+        });
+
+        countryTextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new CountriesFragment());
+            }
+        });
+        countryTextM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new CountriesFragment());
+            }
+        });
+
+        updatesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new NewsFragment());
+            }
+        });
+        updatesTextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new NewsFragment());
+            }
+        });
+
+        casesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new MainFragment());
+            }
+        });
+        casesTextB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new MainFragment());
+            }
+        });
     }
 
     private void loadFragment(Fragment fragment){
@@ -98,9 +126,6 @@ public class MainFragment extends Fragment {
         fragmentTransaction.commit();
 
     }
-
-
-
 
 
     public void bindIds(View view){
@@ -130,6 +155,8 @@ public class MainFragment extends Fragment {
         countryTextB = view.findViewById(R.id.main_textbtn_bottom_country);
         updatesTextB = view.findViewById(R.id.main_textbtn_bottom_updates);
         symptomsTextB = view.findViewById(R.id.main_textbtn_bottom_symptoms);
+
+        countryTextM = view.findViewById(R.id.main_textbtn_viewbycountry);
     }
 
 

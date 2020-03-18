@@ -16,4 +16,7 @@
 
     <color name="purple">#8080FF</color>
     <color name="red">#D12C2C</color>
+
+    <color name="splashcolor">#FFFFFF</color>
+    <color name="splash_title">#818400</color>
 </resources>

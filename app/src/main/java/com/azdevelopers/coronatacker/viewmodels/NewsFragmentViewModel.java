@@ -4,25 +4,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.azdevelopers.coronatacker.interfaces.AsyncResponseNews;
 import com.azdevelopers.coronatacker.models.NewsUpdateData;
 import com.azdevelopers.coronatacker.repositories.NewsUpdateRepository;
 
 import java.util.List;
 
-public class NewsFragmentViewModel extends ViewModel {
-    private static MutableLiveData<List<NewsUpdateData>> newsUpdates;
+public class NewsFragmentViewModel extends ViewModel implements AsyncResponseNews {
+    private static MutableLiveData<List<NewsUpdateData>> newsUpdatesMutable = new MutableLiveData<>();
 
     private NewsUpdateRepository newsUpdateRepository;
     public LiveData<List<NewsUpdateData>> getNewsUpdates(){
-        return newsUpdates;
+        return newsUpdatesMutable;
     }
 
     public void init(){
-        if(newsUpdates!=null){
-            return;
-        }else{
+
             newsUpdateRepository = NewsUpdateRepository.getInstance();
-            newsUpdates = newsUpdateRepository.getNewsUpdates();
-        }
+            newsUpdateRepository.getNewsUpdates(this);
+    }
+
+
+    @Override
+    public void processFinish(List<NewsUpdateData> newsUpdateData) {
+        newsUpdatesMutable.setValue(newsUpdateData);
     }
 }

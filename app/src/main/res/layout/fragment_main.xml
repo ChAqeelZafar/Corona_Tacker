@@ -14,9 +14,10 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="0"
@@ -24,7 +25,8 @@
             android:gravity="center"
             android:text="@string/main_heading"
             android:textColor="@color/main_heading_grey"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/main_text_time"
@@ -34,7 +36,7 @@
             android:layout_marginRight="16dp"
             android:layout_weight="0"
             android:gravity="center"
-            android:text="TextView"
+            android:text="Last updated: Loading..."
             android:textColor="@color/main_timing_grey"
             android:textSize="18sp" />
 
@@ -126,13 +128,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:gravity="center"
-                    android:text="179,814"
+                    android:text="Loading..."
                     android:textColor="@color/total_number"
                     android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/main_textbtn_iewbycountry"
+                    android:id="@+id/main_textbtn_viewbycountry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -155,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:gravity="center"
-                    android:text="179,814"
+                    android:text="Loading..."
                     android:textColor="@color/death_number"
                     android:textSize="40sp"
                     android:textStyle="bold" />
@@ -177,7 +179,7 @@
                     android:layout_marginTop="14dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
-                    android:text="179,814"
+                    android:text="Loading..."
                     android:textColor="@color/recovered_number"
                     android:textSize="40sp"
                     android:textStyle="bold" />
@@ -224,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:gravity="center"
-                    android:text="179,814"
+                    android:text="Loading..."
                     android:textColor="@color/death_number"
                     android:textSize="40sp"
                     android:textStyle="bold" />
@@ -248,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="23%"
+                        android:text="%"
                         app:layout_constraintBottom_toBottomOf="@+id/main_text_mini_serious"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -260,7 +262,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
-                        android:text="88,289"
+                        android:text="Loading..."
                         android:textColor="@color/red"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/main_text_mini_serious_percent"
@@ -272,7 +274,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:text="88,289"
+                        android:text="Loading..."
                         android:textColor="@color/purple"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/divider"
@@ -286,7 +288,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="76%"
+                        android:text="%"
                         app:layout_constraintBottom_toBottomOf="@+id/main_text_mini_mild"
                         app:layout_constraintStart_toEndOf="@+id/main_text_mini_mild" />
 
@@ -366,7 +368,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:gravity="center"
-                    android:text="179,814"
+                    android:text="Loading..."
                     android:textColor="@color/death_number"
                     android:textSize="40sp"
                     android:textStyle="bold" />
@@ -390,7 +392,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="23%"
+                        android:text="%"
                         app:layout_constraintBottom_toBottomOf="@+id/main_text_mini_deaths"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -402,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
-                        android:text="88,289"
+                        android:text="Loading..."
                         android:textColor="?android:attr/textColorPrimaryNoDisable"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/main_text_mini_deaths_percent"
@@ -414,7 +416,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:text="88,289"
+                        android:text="Loading..."
                         android:textColor="@color/recovered_number"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/divider231"
@@ -428,7 +430,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="76%"
+                        android:text="%"
                         app:layout_constraintBottom_toBottomOf="@+id/main_text_mini_recovered"
                         app:layout_constraintStart_toEndOf="@+id/main_text_mini_recovered" />
 
