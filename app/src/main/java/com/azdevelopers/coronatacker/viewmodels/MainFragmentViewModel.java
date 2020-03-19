@@ -9,7 +9,7 @@ import com.azdevelopers.coronatacker.models.CoronaCounts;
 import com.azdevelopers.coronatacker.repositories.CoronaCountsRepository;
 
 public class MainFragmentViewModel extends ViewModel implements AsyncResponseCorona {
-    private static MutableLiveData<CoronaCounts> coronaCountsMutableLiveData = new MutableLiveData<>() ;
+    private static MutableLiveData<CoronaCounts> coronaCountsMutableLiveData = new MutableLiveData<>();  ;
     private CoronaCountsRepository coronaCountsRepository ;
 
 
@@ -18,6 +18,8 @@ public class MainFragmentViewModel extends ViewModel implements AsyncResponseCor
     }
 
     public void init(){
+
+
 
             coronaCountsRepository = CoronaCountsRepository.getInstance();
 
@@ -29,6 +31,7 @@ public class MainFragmentViewModel extends ViewModel implements AsyncResponseCor
 
     @Override
     public void processFinish(CoronaCounts coronaCounts) {
+
         coronaCountsMutableLiveData.setValue(coronaCounts);
     }
 

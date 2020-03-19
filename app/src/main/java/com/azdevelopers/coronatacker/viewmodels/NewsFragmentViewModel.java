@@ -11,7 +11,7 @@ import com.azdevelopers.coronatacker.repositories.NewsUpdateRepository;
 import java.util.List;
 
 public class NewsFragmentViewModel extends ViewModel implements AsyncResponseNews {
-    private static MutableLiveData<List<NewsUpdateData>> newsUpdatesMutable = new MutableLiveData<>();
+    private static MutableLiveData<List<NewsUpdateData>> newsUpdatesMutable = new MutableLiveData<>();;
 
     private NewsUpdateRepository newsUpdateRepository;
     public LiveData<List<NewsUpdateData>> getNewsUpdates(){
@@ -19,6 +19,7 @@ public class NewsFragmentViewModel extends ViewModel implements AsyncResponseNew
     }
 
     public void init(){
+
 
             newsUpdateRepository = NewsUpdateRepository.getInstance();
             newsUpdateRepository.getNewsUpdates(this);

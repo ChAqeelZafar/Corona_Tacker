@@ -1,10 +1,13 @@
 package com.azdevelopers.coronatacker.fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,15 +47,25 @@ public class MainFragment extends Fragment {
         bindIds(view);
         setListeners();
 
+        setTextViewDefault("Loading...");
+
         ((FragmentContainerActivity) getActivity()).setCurrentFragment("main");
 
-        mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
-        mainFragmentViewModel.getCoronaCounts().observe(getViewLifecycleOwner(), new Observer<CoronaCounts>() {
-            @Override
-            public void onChanged(CoronaCounts coronaCounts) {
+
+        if(isNetworkConnected()) {
+
+            mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
+            mainFragmentViewModel.getCoronaCounts().observe(getViewLifecycleOwner(), new Observer<CoronaCounts>() {
+                @Override
+                public void onChanged(CoronaCounts coronaCounts) {
                     setTextViews(coronaCounts);
-            }
-        });
+                }
+            });
+        }else{
+            setTextViewDefault("Internet Unavailable");
+            Toast.makeText(getContext(), "Connect to the Internet and Refresh the App", Toast.LENGTH_LONG).show();
+        }
+
 
         return view;
 
@@ -159,6 +172,12 @@ public class MainFragment extends Fragment {
         countryTextM = view.findViewById(R.id.main_textbtn_viewbycountry);
     }
 
+    public void setTextViewDefault(String s){
+        totalCasesText.setText(s);
+        deathsText.setText(s);
+        recoveredText.setText(s);
+    }
+
 
     public void setTextViews(CoronaCounts coronaCounts){
         totalCasesText.setText(coronaCounts.getTotalCasesCount());
@@ -191,6 +210,12 @@ public class MainFragment extends Fragment {
         }
         return null;
 
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
 

@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">Corona Tacker</string>
+    <string name="app_name">Corona Tracker</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="main_heading">COVID-19 CORONAVIRUS OUTBREAK</string>
     <string name="view_by_country"><u>View by country</u></string>
 
@@ -13,5 +12,9 @@
     <string name="symptoms"><u>SYMPTOMS</u></string>
 
 
-    <string name="symp1"></string>
+    <string name="admob_appid">ca-app-pub-5057257651105810~7494995143</string>
+    <string name="admob_banner_id">ca-app-pub-5057257651105810/2051096778</string>
+
+    <string name="admob_app_id_original">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_banner_id_original">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

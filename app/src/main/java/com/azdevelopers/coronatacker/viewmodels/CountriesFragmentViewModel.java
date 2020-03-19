@@ -14,7 +14,7 @@ import com.azdevelopers.coronatacker.repositories.CountriesCountsRepository;
 import java.util.List;
 
 public class CountriesFragmentViewModel extends AndroidViewModel implements AsyncResponseCountries {
-    private static MutableLiveData<List<CountryData>> countriesDataMutable = new MutableLiveData<>();
+    private static MutableLiveData<List<CountryData>> countriesDataMutable  = new MutableLiveData<>(); ;
     private CountriesCountsRepository countriesCountsRepository;
 
     public CountriesFragmentViewModel(@NonNull Application application) {
@@ -26,6 +26,9 @@ public class CountriesFragmentViewModel extends AndroidViewModel implements Asyn
     }
 
     public void init(){
+//        if(countriesDataMutable.getValue()!=null)
+//            countriesDataMutable.setValue(null);
+
 
             countriesCountsRepository = CountriesCountsRepository.getInstance();
             countriesCountsRepository.getCountriesData(this);

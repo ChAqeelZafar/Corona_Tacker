@@ -2,7 +2,10 @@ package com.azdevelopers.coronatacker;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.widget.Toast;
 
 import com.azdevelopers.coronatacker.viewmodels.CountriesFragmentViewModel;
 import com.azdevelopers.coronatacker.viewmodels.MainFragmentViewModel;
@@ -17,10 +20,11 @@ public class SplashActivity extends AwesomeSplash {
     private CountriesFragmentViewModel countriesFragmentViewModel;
     private NewsFragmentViewModel newsFragmentViewModel;
     private MainFragmentViewModel mainFragmentViewModel;
-    private boolean restart = false;
+    private boolean isNetwork = false;
 
     @Override
     public void initSplash(ConfigSplash configSplash) {
+
 
 
             mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
@@ -34,11 +38,12 @@ public class SplashActivity extends AwesomeSplash {
 
 
 
+
             /* you don't have to override every property */
 
             //Customize Circular Reveal
-            configSplash.setBackgroundColor(R.color.colorAccent); //any color you want form colors.xml
-            configSplash.setAnimCircularRevealDuration(1100); //int ms
+            configSplash.setBackgroundColor(R.color.black); //any color you want form colors.xml
+            configSplash.setAnimCircularRevealDuration(1500); //int ms
             configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);  //or Flags.REVEAL_LEFT
             configSplash.setRevealFlagY(Flags.REVEAL_BOTTOM); //or Flags.REVEAL_TOP
 
@@ -59,6 +64,8 @@ public class SplashActivity extends AwesomeSplash {
             //configSplash.setAnimTitleTechnique(Techniques.FadeInDown);
             //configSplash.setTitleFont("asset/splashfont.ttf"); //provide string to your font
 
+
+
     }
 
     @Override
@@ -70,6 +77,7 @@ public class SplashActivity extends AwesomeSplash {
         finish();
 
     }
+
 
 
 }

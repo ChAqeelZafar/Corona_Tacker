@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CountriesCountsRepository {
     public static CountriesCountsRepository instance;
-    private ArrayList<CountryData> countriesData = new ArrayList<>();
+    private ArrayList<CountryData> countriesData ;
     private CountryData totality = new CountryData();
 
     private CountriesCountsRepository(){
@@ -52,6 +52,7 @@ public class CountriesCountsRepository {
                 Document doc = null;
 
                 try {
+                    countriesData = new ArrayList<>();
                     doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
 
 

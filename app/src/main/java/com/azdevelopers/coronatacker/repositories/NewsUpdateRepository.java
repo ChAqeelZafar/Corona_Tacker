@@ -23,7 +23,7 @@ import java.util.TimeZone;
 
 public class NewsUpdateRepository {
     public static NewsUpdateRepository instance;
-    private ArrayList<NewsUpdateData> newsUpdates = new ArrayList<>();
+    private ArrayList<NewsUpdateData> newsUpdates ;
     private NewsUpdateRepository(){
 
     }
@@ -54,6 +54,7 @@ public class NewsUpdateRepository {
 
                 Document doc = null;
                 try {
+                    newsUpdates = new ArrayList<>();
                     doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
 
 
@@ -74,6 +75,8 @@ public class NewsUpdateRepository {
 
 
                     }
+
+                    String s = "temp";
 
 
                 } catch (IOException e) {

@@ -19,6 +19,8 @@ public class CoronaCounts {
         this.currentTime = currentTime;
     }
 
+
+
     public String getCurrentTime() {
         return currentTime;
     }

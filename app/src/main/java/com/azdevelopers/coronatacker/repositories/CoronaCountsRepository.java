@@ -1,5 +1,7 @@
 package com.azdevelopers.coronatacker.repositories;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.MutableLiveData;
@@ -15,7 +17,7 @@ import java.io.IOException;
 
 public class CoronaCountsRepository {
     private static CoronaCountsRepository instance;
-    private CoronaCounts coronaCounts = new CoronaCounts();
+    private CoronaCounts coronaCounts ;
     MutableLiveData<CoronaCounts> data;
     //private MainFragmentViewModel mainFragmentViewModel = new MainFragmentViewModel();
     private CoronaCountsRepository(){
@@ -46,8 +48,13 @@ public class CoronaCountsRepository {
 
             @Override
             protected Void doInBackground(Void... voids) {
+
+
+
+
                 Document doc = null;
                 try {
+                    coronaCounts = new CoronaCounts();
                     doc = Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
 
                     //For current Time of Updated Data
@@ -71,10 +78,8 @@ public class CoronaCountsRepository {
                     coronaCounts.setMildCasesCount(mildSeriousCount.get(0).text());
                     coronaCounts.setSeriousCasesCount(mildSeriousCount.get(1).text());
 
-                    //System.out.println(coronaCounts.getDeathCount());
 
-//                    if(coronaCounts!=null)
-//                        mainFragmentViewModel.setCoronaCountsMutableLiveData(coronaCounts);
+
 
 
 
@@ -93,4 +98,8 @@ public class CoronaCountsRepository {
 
 
     }
+
+
+
+
 }
